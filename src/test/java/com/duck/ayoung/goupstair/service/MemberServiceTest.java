@@ -98,17 +98,4 @@ class MemberServiceTest {
         assertThat(idTester1.size()).isEqualTo(1);
     }
 
-    @Test
-    public void 계단() {
-        MemberForm memberForm1 = new MemberForm("test1", "tester1", "test1");
-        Long join = memberService.join(memberForm1);
-        Member one = memberRepository.findOne(join);
-
-        Stair stair = new Stair(10, one);
-        Stair stair2 = new Stair(20, one);
-        em.persist(stair);
-        em.persist(stair2);
-        Long stair1 = memberRepository.getSumStairValue(join);
-        System.out.println("stair1 = " + stair1);
-    }
 }

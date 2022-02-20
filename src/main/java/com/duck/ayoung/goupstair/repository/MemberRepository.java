@@ -1,6 +1,7 @@
 package com.duck.ayoung.goupstair.repository;
 
 import com.duck.ayoung.goupstair.domain.Member;
+import com.duck.ayoung.goupstair.domain.Stair;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -40,12 +41,4 @@ public class MemberRepository {
                 .getResultList();
     }
 
-    public Long getSumStairValue(Long memberId) {
-        List<Long> resultList =
-                em.createQuery("select sum(s.stairValue) from Stair s " +
-                                "join Member m on m.id = :memberId", Long.class)
-                .setParameter("memberId", memberId)
-                .getResultList();
-        return resultList.get(0);
-    }
 }

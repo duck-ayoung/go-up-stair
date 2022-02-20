@@ -23,6 +23,15 @@ public class Stair {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    public Stair() {
+    }
+
+    public Stair(int stairValue, Member member, LocalDateTime localDateTime) {
+        this.stairValue = stairValue;
+        this.createDateTime = localDateTime;
+        this.member = member;
+    }
+
     public Stair(int stairValue, Member member) {
         this.stairValue = stairValue;
         this.createDateTime = LocalDateTime.now();

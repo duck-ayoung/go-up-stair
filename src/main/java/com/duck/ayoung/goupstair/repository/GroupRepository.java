@@ -17,10 +17,20 @@ public class GroupRepository {
     @PersistenceContext
     private EntityManager em;
 
-    public void save(Group group) {
+    public void save(Group group, Member member) {
         em.persist(group);
+        MemberGroup memberGroup = new MemberGroup(member, group);
+        em.persist(memberGroup);
     }
 
+    public void join(Group group, Member member) {
+        MemberGroup memberGroup = new MemberGroup(member, group);
+        em.persist(memberGroup);
+    }
+
+    public Group findOne(Long groupId) {
+        return em.find(Group.class, groupId);
+    }
 
     public List<Member> findMember(Long groupId) {
         return em.createQuery("select mg.member from MemberGroup mg " +

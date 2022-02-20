@@ -31,22 +31,16 @@ class GroupRepositoryTest {
     EntityManager em;
 
     @Test
-    @Rollback(value = false)
     public void 멤버검색() {
         //given
         Member member1 = createMember("test1", "tester1", "test1");
         Member member2 = createMember("test2", "tester2", "test2");
         Member member3 = createMember("test3", "tester3", "test3");
 
-        Group group1 = createGroup("group1", null, null);
-        Group group2 = createGroup("group2", null, null);
+        Group group1 = createGroup("group1", null, null, member1);
+        Group group2 = createGroup("group2", null, null, member3);
 
-        MemberGroup memberGroup1 = new MemberGroup(member1, group1);
-        MemberGroup memberGroup2 = new MemberGroup(member2, group1);
-        MemberGroup memberGroup3 = new MemberGroup(member3, group2);
-        em.persist(memberGroup1);
-        em.persist(memberGroup2);
-        em.persist(memberGroup3);
+        groupRepository.join(group1, member2);
 
         //when
         List<Member> members = groupRepository.findMember(group1.getId());
@@ -87,9 +81,9 @@ class GroupRepositoryTest {
         return member;
     }
 
-    public Group createGroup(String name, String loginImage, String description) {
+    public Group createGroup(String name, String loginImage, String description, Member member) {
         Group group = new Group(name, loginImage, description);
-        groupRepository.save(group);
+        groupRepository.save(group, member);
         return group;
     }
 }
