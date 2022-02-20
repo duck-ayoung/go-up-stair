@@ -23,4 +23,9 @@ public class Stair {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    public Stair(int stairValue, Member member) {
+        this.stairValue = stairValue;
+        this.createDateTime = LocalDateTime.now();
+        this.member = member;
+    }
 }

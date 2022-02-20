@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Repository
@@ -33,10 +34,18 @@ public class MemberRepository {
                 .getResultList();
     }
 
-
     public List<Member> findByNickNameContaining(String nickName) {
         return em.createQuery("select m from Member m where m.nickName like :nickName", Member.class)
                 .setParameter("nickName", "%"+nickName+"%")
                 .getResultList();
+    }
+
+    public Long getSumStairValue(Long memberId) {
+        List<Long> resultList =
+                em.createQuery("select sum(s.stairValue) from Stair s " +
+                                "join Member m on m.id = :memberId", Long.class)
+                .setParameter("memberId", memberId)
+                .getResultList();
+        return resultList.get(0);
     }
 }

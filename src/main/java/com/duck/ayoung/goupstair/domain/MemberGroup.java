@@ -19,4 +19,10 @@ public class MemberGroup {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_id")
     private Group group;
+
+
+    public MemberGroup(Member member, Group group) {
+        this.member = member;
+        this.group = group;
+    }
 }

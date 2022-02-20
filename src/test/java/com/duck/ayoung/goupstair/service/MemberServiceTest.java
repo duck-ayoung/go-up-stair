@@ -1,15 +1,16 @@
 package com.duck.ayoung.goupstair.service;
 
 import com.duck.ayoung.goupstair.domain.Member;
+import com.duck.ayoung.goupstair.domain.Stair;
 import com.duck.ayoung.goupstair.repository.MemberRepository;
 import com.duck.ayoung.goupstair.web.MemberForm;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
 import java.util.List;
@@ -24,6 +25,8 @@ class MemberServiceTest {
 
     @Autowired MemberService memberService;
     @Autowired MemberRepository memberRepository;
+    @Autowired
+    EntityManager em;
 
     @Test
     public void 회원가입() {
@@ -93,5 +96,19 @@ class MemberServiceTest {
         //then
         assertThat(idTester.size()).isEqualTo(2);
         assertThat(idTester1.size()).isEqualTo(1);
+    }
+
+    @Test
+    public void 계단() {
+        MemberForm memberForm1 = new MemberForm("test1", "tester1", "test1");
+        Long join = memberService.join(memberForm1);
+        Member one = memberRepository.findOne(join);
+
+        Stair stair = new Stair(10, one);
+        Stair stair2 = new Stair(20, one);
+        em.persist(stair);
+        em.persist(stair2);
+        Long stair1 = memberRepository.getSumStairValue(join);
+        System.out.println("stair1 = " + stair1);
     }
 }
