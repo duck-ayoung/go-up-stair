@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link th:href="@{/css/bootstrap.min.css}" href="css/bootstrap.min.css" rel="stylesheet">
+</head>
+<style>
+    div#main_block {
+        margin-top: 50px;
+        text-align: center;
+    }
+    p#start_button {
+        margin-top: 20px;
+    }
+</style>
+<body>
+<div class="container" id="main_block">
+    <h1>Let's go up the stairs</h1>
+    <h2>For all of us</h2>
+
+    <img src="../static/images/stairs.png" th:src="@{/images/stairs.png}" alt="My Image" height="300">
+    <p id="start_button">
+        <button type="button" class="btn btn-primary btn-lg">Start</button>
+    </p>
+</div>
+</body>
+</html>
