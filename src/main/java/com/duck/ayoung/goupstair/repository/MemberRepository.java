@@ -29,6 +29,13 @@ public class MemberRepository {
                 .getResultList();
     }
 
+    public List<Member> findByLogin(String loginId, String password) {
+        return em.createQuery("select m from Member m where m.loginId =:loginId and m.password =:password", Member.class)
+                .setParameter("loginId", loginId)
+                .setParameter("password", password)
+                .getResultList();
+    }
+
     public List<Member> findByLoginIdContaining(String loginId) {
         return em.createQuery("select m from Member m where m.loginId like :loginId", Member.class)
                 .setParameter("loginId", "%"+loginId+"%")

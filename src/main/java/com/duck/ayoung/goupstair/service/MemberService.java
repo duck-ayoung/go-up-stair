@@ -2,7 +2,7 @@ package com.duck.ayoung.goupstair.service;
 
 import com.duck.ayoung.goupstair.domain.Member;
 import com.duck.ayoung.goupstair.repository.MemberRepository;
-import com.duck.ayoung.goupstair.web.MemberForm;
+import com.duck.ayoung.goupstair.web.member.MemberForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

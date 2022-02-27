@@ -13,6 +13,7 @@
     p#start_button {
         margin-top: 20px;
     }
+
 </style>
 <body>
 <div class="container" id="main_block">
@@ -21,7 +22,7 @@
 
     <img src="../static/images/stairs.png" th:src="@{/images/stairs.png}" alt="My Image" height="300">
     <p id="start_button">
-        <button type="button" class="btn btn-primary btn-lg">Start</button>
+        <button type="button" class="btn btn-primary btn-lg" th:onclick="|location.href='@{/login}'|">Start</button>
     </p>
 </div>
 </body>

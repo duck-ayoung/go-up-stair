@@ -5,7 +5,7 @@ import com.duck.ayoung.goupstair.domain.Member;
 import com.duck.ayoung.goupstair.repository.GroupRepository;
 import com.duck.ayoung.goupstair.repository.MemberRepository;
 import com.duck.ayoung.goupstair.web.GroupForm;
-import com.duck.ayoung.goupstair.web.MemberForm;
+import com.duck.ayoung.goupstair.web.member.MemberForm;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
