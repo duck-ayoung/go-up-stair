@@ -1,5 +1,6 @@
 package com.duck.ayoung.goupstair.web.main;
 
+import com.duck.ayoung.goupstair.common.SessionConst;
 import com.duck.ayoung.goupstair.domain.Member;
 import com.duck.ayoung.goupstair.service.MemberService;
 import com.duck.ayoung.goupstair.service.StairService;
@@ -10,7 +11,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Slf4j
@@ -23,20 +27,30 @@ public class MainController {
     private final MemberService memberService;
 
     @GetMapping
-    public String main(Model model) {
-        //Todo member find by session
-        List<Member> test1 = memberService.findByNickNameContaining("test1");
-        model.addAttribute("totalStairValue", stairService.getSumStairValueForWeek(test1.get(0).getId()));
+    public String main(@SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) Member loginMember,
+                       Model model) {
+        if (loginMember == null) {
+            return "home";
+        }
+
+        model.addAttribute("totalStairValue",
+                stairService.getSumStairValueForWeek(loginMember.getId()));
         return "main/main";
     }
 
     @PostMapping("/stair/add")
-    public String addStair(Integer stairValue, Model model) {
+    public String addStair(@SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) Member loginMember,
+                           Integer stairValue, Model model) {
         log.info("stair {}", stairValue);
-        //Todo member find by session
-        List<Member> test1 = memberService.findByNickNameContaining("test1");
-        stairService.save(stairValue, test1.get(0));
-        model.addAttribute("totalStairValue", stairService.getSumStairValueForWeek(test1.get(0).getId()));
+
+        if (loginMember == null) {
+            return "home";
+        }
+
+        log.info("loginMember.getLoginId {}", loginMember.getLoginId());
+        stairService.save(stairValue, loginMember);
+        model.addAttribute("totalStairValue", stairService.getSumStairValueForWeek(loginMember.getId()));
+        log.info("totalStairValue {}", stairService.getSumStairValueForWeek(loginMember.getId()));
         return "main/main";
     }
 }
