@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link th:href="@{/css/bootstrap.min.css}" href="css/bootstrap.min.css" rel="stylesheet">
+</head>
+<style>
+    div#main_block {
+        max-width: 680px;
+        margin-top: 50px;
+        text-align: center;
+    }
+    .field {
+    width: 60%;
+    }
+    .submit_button {
+    width: 30%;
+    }
+    .stair_box {
+    text-align: center;
+    }
+    .stair_image {
+    width: 30%;
+    margin: auto;
+    }
+    .current_stair {
+    width: 40%;
+    margin: auto;
+    font-size: 100px;
+    background-color:#EAEAEA;
+    }
+</style>
+<body>
+<div class="container" id="main_block">
+    <h2>몇 칸 오르셨나요?</h2>
+    <form class="form-control" action="" th:action="@{/main/stair/add}" method="post">
+        <div class="form-group row my-3">
+            <div class="field">
+                <input type="text" class="form-control" id="stairValue" name="stairValue" placeholder="계단 수를 입력해주세요">
+            </div>
+            <button type="submit" class="submit_button btn btn-primary">입력</button>
+        </div>
+    </form>
+
+    <div class="row my-3 stair_box text-center">
+        <p class="stair_image">
+        <img src="../static/images/stairs.png" class="img-fluid" th:src="@{/images/stairs-up.png}" alt="stairs">
+        </p>
+        <p class="current_stair text-center" th:text="${totalStairValue}">
+           63
+        </p>
+    </div>
+</div>
+</body>
+</html>
