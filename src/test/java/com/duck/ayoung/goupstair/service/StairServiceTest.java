@@ -33,10 +33,12 @@ class StairServiceTest {
         Member member = new Member("test1", "tester1", "test1");
         memberRepository.save(member);
         Long preSaveSumStairValue = stairRepository.getSumStairValueForWeek(member.getId());
-        System.out.println("preSaveSumStairValue = " + preSaveSumStairValue);
+        Member member2 = new Member("test2", "tester2", "test2");
+        memberRepository.save(member2);
 
         //when
         stairService.save(value, member);
+        stairService.save(value, member2);
         Long postSaveSumStairValue = stairRepository.getSumStairValueForWeek(member.getId());
 
         //then

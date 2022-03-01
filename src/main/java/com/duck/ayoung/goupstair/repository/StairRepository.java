@@ -34,13 +34,14 @@ public class StairRepository {
         LocalDate thisMonday = DateUtil.getThisMonday(LocalDate.from(localDateTime));
 
         List<Long> resultList = em.createQuery("select sum(s.stairValue) from Stair s " +
-                                "join Member m on m.id = :memberId " +
-                                "where s.createDateTime >= :thisMonday " +
-                                "and s.createDateTime <= :localDate", Long.class)
-                        .setParameter("memberId", memberId)
-                        .setParameter("thisMonday", thisMonday.atTime(0,0))
-                        .setParameter("localDate", localDateTime)
-                        .getResultList();
+                "join s.member m on m.id = :memberId " +
+                "where s.createDateTime >= :thisMonday " +
+                "and s.createDateTime <= :localDate", Long.class)
+                .setParameter("memberId", memberId)
+                .setParameter("thisMonday", thisMonday.atTime(0, 0))
+                .setParameter("localDate", localDateTime)
+                .getResultList();
+
 
         if (resultList.get(0) == null) {
             return 0L;
