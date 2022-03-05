@@ -1,4 +1,4 @@
-package com.duck.ayoung.goupstair.web;
+package com.duck.ayoung.goupstair.web.group;
 
 import lombok.Getter;
 

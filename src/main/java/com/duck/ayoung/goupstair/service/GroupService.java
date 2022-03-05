@@ -4,7 +4,7 @@ import com.duck.ayoung.goupstair.domain.Group;
 import com.duck.ayoung.goupstair.domain.Member;
 import com.duck.ayoung.goupstair.repository.GroupRepository;
 import com.duck.ayoung.goupstair.repository.MemberRepository;
-import com.duck.ayoung.goupstair.web.GroupForm;
+import com.duck.ayoung.goupstair.web.group.GroupForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

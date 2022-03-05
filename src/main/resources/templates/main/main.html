@@ -16,6 +16,9 @@
     .field {
     width: 60%;
     }
+    .submit_button {
+    width: 30%;
+    }
     .attach_button {
     width: 30%;
     }
@@ -64,7 +67,7 @@
     </button>
 
     <!-- Modal -->
-    <form class="form-horizontal" action="" th:action method="post">
+    <form class="form-horizontal" action="" th:action="@{/group/add}" method="post">
         <div class="modal fade bd-example-modal-lg modal_style" id="create_group_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -96,7 +99,6 @@
                 </div>
             </div>
         </div>
-
     </form>
 </div>
 </body>

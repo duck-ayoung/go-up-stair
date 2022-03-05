@@ -31,7 +31,7 @@ public class MainController {
     public String main(@Login Member loginMember,
                        Model model) {
         if (loginMember == null) {
-            return "home";
+            return "redirect:/";
         }
 
         model.addAttribute("totalStairValue",
@@ -45,7 +45,7 @@ public class MainController {
         log.info("stair {}", stairValue);
 
         if (loginMember == null) {
-            return "home";
+            return "redirect:/";
         }
 
         log.info("loginMember.getLoginId {}", loginMember.getLoginId());
