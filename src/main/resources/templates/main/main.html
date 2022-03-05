@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link th:href="@{/css/bootstrap.min.css}" href="css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 </head>
 <style>
     div#main_block {
@@ -14,7 +16,7 @@
     .field {
     width: 60%;
     }
-    .submit_button {
+    .attach_button {
     width: 30%;
     }
     .stair_box {
@@ -30,6 +32,10 @@
     font-size: 100px;
     background-color:#EAEAEA;
     }
+    .modal_style {
+        text-align: left;
+    }
+
 </style>
 <body>
 <div class="container" id="main_block">
@@ -45,12 +51,53 @@
 
     <div class="row my-3 stair_box text-center">
         <p class="stair_image">
-        <img src="../static/images/stairs.png" class="img-fluid" th:src="@{/images/stairs-up.png}" alt="stairs">
+            <img src="../static/images/stairs.png" class="img-fluid" th:src="@{/images/stairs-up.png}" alt="stairs">
         </p>
         <p class="current_stair text-center" th:text="${totalStairValue}">
-           63
+            63
         </p>
     </div>
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#create_group_modal">
+        그룹 만들기
+    </button>
+
+    <!-- Modal -->
+    <form class="form-horizontal" action="" th:action method="post">
+        <div class="modal fade bd-example-modal-lg modal_style" id="create_group_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="name" class="col-form-label">그룹명</label>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="그룹명">
+                        </div>
+                        <div class="form-group">
+                            <label for="description" class="col-form-label">그룹 상세</label>
+                            <input type="text" class="form-control" id="description" name="description" placeholder="그룹 상세">
+                        </div>
+                        <div class="form-group">
+                            <label for="iconImage" class="col-form-label">그룹 이미지</label>
+                            <div class="row">
+                            <div class="field">
+                                <input type="text" class="form-control" id="iconImage" name="iconImage" placeholder="파일명">
+                            </div>
+                            <div class="attach_button">
+                                <button type="button" class="btn btn-secondary btn-xs">첨부하기</button>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                        <button type="submit" class="btn btn-primary">생성</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
 </div>
 </body>
 </html>
