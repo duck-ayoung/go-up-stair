@@ -4,6 +4,7 @@ import com.duck.ayoung.goupstair.common.SessionConst;
 import com.duck.ayoung.goupstair.domain.Member;
 import com.duck.ayoung.goupstair.service.MemberService;
 import com.duck.ayoung.goupstair.service.StairService;
+import com.duck.ayoung.goupstair.web.argumentresolver.Login;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -27,7 +28,7 @@ public class MainController {
     private final MemberService memberService;
 
     @GetMapping
-    public String main(@SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) Member loginMember,
+    public String main(@Login Member loginMember,
                        Model model) {
         if (loginMember == null) {
             return "home";
@@ -39,7 +40,7 @@ public class MainController {
     }
 
     @PostMapping("/stair/add")
-    public String addStair(@SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) Member loginMember,
+    public String addStair(@Login Member loginMember,
                            Integer stairValue, Model model) {
         log.info("stair {}", stairValue);
 
