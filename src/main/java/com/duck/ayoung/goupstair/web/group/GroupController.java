@@ -27,6 +27,6 @@ public class GroupController {
         log.info("groupForm.getName {}", groupForm.getName());
         groupService.createGroup(groupForm, loginMember.getId());
 
-        return "main/main";
+        return "redirect:/main";
     }
 }

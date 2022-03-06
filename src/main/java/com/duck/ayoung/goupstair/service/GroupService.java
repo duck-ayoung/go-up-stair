@@ -38,4 +38,7 @@ public class GroupService {
         return groupRepository.findMember(groupId);
     }
 
+    public List<Group> findGroupsByMember(Member member) {
+        return groupRepository.findGroupsByMember(member);
+    }
 }

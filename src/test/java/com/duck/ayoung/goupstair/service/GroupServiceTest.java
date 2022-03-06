@@ -54,18 +54,56 @@ class GroupServiceTest {
     @Test
     public void 그룹_가입() {
         //given
-        MemberForm memberForm = new MemberForm("test1", "tester1", "test1");
+        MemberForm memberForm1 = new MemberForm("test1", "tester1", "test1");
+        MemberForm memberForm2 = new MemberForm("test2", "tester2", "test2");
         GroupForm groupForm = new GroupForm("group1", null, null);
-        Long memberId = memberService.join(memberForm);
-        Long groupId = groupService.createGroup(groupForm, memberId);
+        Long memberId1 = memberService.join(memberForm1);
+        Long memberId2 = memberService.join(memberForm2);
+        Long groupId = groupService.createGroup(groupForm, memberId1);
 
         //when
-        groupService.joinGroup(groupId, memberId);
+        groupService.joinGroup(groupId, memberId2);
         List<Member> member = groupService.findMember(groupId);
 
         //then
-        assertThat(member).contains(memberRepository.findOne(memberId));
+        assertThat(member).contains(memberRepository.findOne(memberId1), memberRepository.findOne(memberId2));
 
+    }
+
+    @Test
+    public void 그룹_조회() {
+        //given
+        MemberForm memberForm1 = new MemberForm("test1", "tester1", "test1");
+        GroupForm groupForm1 = new GroupForm("group1", null, null);
+        GroupForm groupForm2 = new GroupForm("group2", null, null);
+        Long memberId1 = memberService.join(memberForm1);
+        Long groupId1 = groupService.createGroup(groupForm1, memberId1);
+        Long groupId2 = groupService.createGroup(groupForm2, memberId1);
+
+        //when
+        List<Group> groups = groupService.findGroupsByMember(memberRepository.findOne(memberId1));
+
+        //then
+        assertThat(groups).contains(groupRepository.findOne(groupId1), groupRepository.findOne(groupId2));
+    }
+
+    @Test
+    public void 그룹_없을때_조회() {
+        //given
+        MemberForm memberForm1 = new MemberForm("test1", "tester1", "test1");
+        MemberForm memberForm2 = new MemberForm("test2", "tester2", "test2");
+        GroupForm groupForm1 = new GroupForm("group1", null, null);
+        GroupForm groupForm2 = new GroupForm("group2", null, null);
+        Long memberId1 = memberService.join(memberForm1);
+        Long memberId2 = memberService.join(memberForm2);
+        Long groupId1 = groupService.createGroup(groupForm1, memberId1);
+        Long groupId2 = groupService.createGroup(groupForm2, memberId1);
+
+        //when
+        List<Group> groups = groupService.findGroupsByMember(memberRepository.findOne(memberId2));
+
+        //then
+        assertThat(groups.size()).isEqualTo(0);
     }
 
 }

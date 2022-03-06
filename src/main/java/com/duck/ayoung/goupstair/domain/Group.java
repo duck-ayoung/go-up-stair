@@ -20,6 +20,9 @@ public class Group {
     private String iconImage;
     private String description;
 
+    public Group() {
+    }
+
     public Group(String name, String iconImage, String description) {
         this.name = name;
         this.iconImage = iconImage;

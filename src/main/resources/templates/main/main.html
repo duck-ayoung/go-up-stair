@@ -61,6 +61,10 @@
         </p>
     </div>
 
+        <div th:each="group : ${groups}">
+            <div class="well" th:text="${group.name}"></div>
+        </div>
+
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#create_group_modal">
         그룹 만들기

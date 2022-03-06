@@ -39,6 +39,12 @@ public class GroupRepository {
                 .getResultList();
     }
 
+    public List<Group> findGroupsByMember(Member member) {
+        return em.createQuery("select mg.group from MemberGroup mg where mg.member.id = :memberId", Group.class)
+                .setParameter("memberId", member.getId())
+                .getResultList();
+    }
+
 //    public List<Member> findRankMember(Long groupId) {
 //        List<MemberGroup> memberGroups = em.createQuery("select mg from MemberGroup mg join mg.group g on g.id = :groupId", MemberGroup.class)
 //                .setParameter("groupId", groupId)

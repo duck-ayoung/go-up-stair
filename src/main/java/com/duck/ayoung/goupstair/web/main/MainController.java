@@ -2,6 +2,7 @@ package com.duck.ayoung.goupstair.web.main;
 
 import com.duck.ayoung.goupstair.common.SessionConst;
 import com.duck.ayoung.goupstair.domain.Member;
+import com.duck.ayoung.goupstair.service.GroupService;
 import com.duck.ayoung.goupstair.service.MemberService;
 import com.duck.ayoung.goupstair.service.StairService;
 import com.duck.ayoung.goupstair.web.argumentresolver.Login;
@@ -26,6 +27,7 @@ public class MainController {
 
     private final StairService stairService;
     private final MemberService memberService;
+    private final GroupService groupService;
 
     @GetMapping
     public String main(@Login Member loginMember,
@@ -36,6 +38,7 @@ public class MainController {
 
         model.addAttribute("totalStairValue",
                 stairService.getSumStairValueForWeek(loginMember.getId()));
+        model.addAttribute("groups", groupService.findGroupsByMember(loginMember));
         return "main/main";
     }
 
