@@ -50,7 +50,7 @@ public class GroupRepository {
                 .getResultList();
     }
 
-    public List<RankInfo> findRankMember(Long groupId) {
+    public List<RankInfo> findRankInfo(Long groupId) {
         LocalDateTime localDateTime = LocalDateTime.now();
         LocalDate thisMonday = DateUtil.getThisMonday(LocalDate.from(localDateTime));
 

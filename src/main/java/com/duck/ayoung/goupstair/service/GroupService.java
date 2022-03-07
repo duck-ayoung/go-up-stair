@@ -4,6 +4,7 @@ import com.duck.ayoung.goupstair.domain.Group;
 import com.duck.ayoung.goupstair.domain.Member;
 import com.duck.ayoung.goupstair.repository.GroupRepository;
 import com.duck.ayoung.goupstair.repository.MemberRepository;
+import com.duck.ayoung.goupstair.repository.RankInfo;
 import com.duck.ayoung.goupstair.web.group.GroupForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -40,5 +41,9 @@ public class GroupService {
 
     public List<Group> findGroupsByMember(Member member) {
         return groupRepository.findGroupsByMember(member);
+    }
+
+    public List<RankInfo> findRankInfo(Long groupId) {
+        return groupRepository.findRankInfo(groupId);
     }
 }

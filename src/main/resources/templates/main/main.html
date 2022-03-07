@@ -85,7 +85,8 @@
     <div>
         <h2>그룹 계단 오르기 현황</h2>
         <div th:each="group : ${groups}">
-            <div class="card my-3">
+            <a href="#" th:href="@{/groups/{id} (id=${group.id})}">
+                <div class="card my-3">
                     <div class="card-body">
                         <div class="row">
                             <div class="box col-sm-4">
@@ -97,7 +98,8 @@
                             </div>
                         </div>
                     </div>
-            </div>
+                </div>
+            </a>
         </div>
     </div>
 
@@ -107,7 +109,7 @@
     </button>
 
     <!-- Modal -->
-    <form class="form-horizontal" action="" th:action="@{/group/add}" method="post">
+    <form class="form-horizontal" action="" th:action="@{/groups/add}" method="post">
         <div class="modal fade bd-example-modal-lg modal_style" id="create_group_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">

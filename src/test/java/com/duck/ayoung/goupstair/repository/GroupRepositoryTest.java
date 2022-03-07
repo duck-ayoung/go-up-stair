@@ -2,14 +2,11 @@ package com.duck.ayoung.goupstair.repository;
 
 import com.duck.ayoung.goupstair.domain.Group;
 import com.duck.ayoung.goupstair.domain.Member;
-import com.duck.ayoung.goupstair.domain.MemberGroup;
 import com.duck.ayoung.goupstair.service.StairService;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import javax.persistence.EntityManager;
@@ -74,7 +71,7 @@ class GroupRepositoryTest {
         stairService.save(30, member3);
 
         //when
-        List<RankInfo> rankMember = groupRepository.findRankMember(group.getId());
+        List<RankInfo> rankMember = groupRepository.findRankInfo(group.getId());
 
         //then
         assertThat(rankMember.get(0).member).isEqualTo(member3);
