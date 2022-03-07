@@ -3,6 +3,7 @@ package com.duck.ayoung.goupstair.repository;
 import com.duck.ayoung.goupstair.domain.Group;
 import com.duck.ayoung.goupstair.domain.Member;
 import com.duck.ayoung.goupstair.domain.MemberGroup;
+import com.duck.ayoung.goupstair.service.StairService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,6 +29,8 @@ class GroupRepositoryTest {
     @Autowired
     GroupRepository groupRepository;
     @Autowired
+    StairService stairService;
+    @Autowired
     EntityManager em;
 
     @Test
@@ -50,30 +53,34 @@ class GroupRepositoryTest {
 
     }
 
-//    @Test
-//    @Rollback(value = false)
-//    public void 멤버랭크검색() {
-//        Member member1 = new Member("test1", "tester1", "test1");
-//        Member member2 = new Member("test2", "tester2", "test2");
-//
-//        memberRepository.save(member1);
-//        memberRepository.save(member2);
-//
-//        Group group = new Group("group1", null, null);
-//        groupRepository.save(group);
-//        System.out.println("group.getId() = " + group.getId());
-//
-//        MemberGroup memberGroup = new MemberGroup(member1, group);
-//        MemberGroup memberGroup2 = new MemberGroup(member2, group);
-//        em.persist(memberGroup);
-//        em.persist(memberGroup2);
-//
-//        List<Member> rankMember = groupRepository.findRankMember(group.getId());
-//        for (Member memberGroup1 : rankMember) {
-//            System.out.println("memberGroup.getGroup().getId() = " + memberGroup1.getNickName());
-//        }
-//
-//    }
+    @Test
+    public void 멤버랭크검색() {
+        // given
+        Member member1 = new Member("test1", "tester1", "test1");
+        Member member2 = new Member("test2", "tester2", "test2");
+        Member member3 = new Member("test3", "tester3", "test3");
+
+        memberRepository.save(member1);
+        memberRepository.save(member2);
+        memberRepository.save(member3);
+
+        Group group = new Group("group1", null, null);
+        groupRepository.save(group, member1);
+        groupRepository.join(group, member2);
+        groupRepository.join(group, member3);
+
+        stairService.save(20, member1);
+        stairService.save(10, member2);
+        stairService.save(30, member3);
+
+        //when
+        List<RankInfo> rankMember = groupRepository.findRankMember(group.getId());
+
+        //then
+        assertThat(rankMember.get(0).member).isEqualTo(member3);
+        assertThat(rankMember.get(1).member).isEqualTo(member1);
+        assertThat(rankMember.get(2).member).isEqualTo(member2);
+    }
 
     public Member createMember(String loginId, String nickName, String password) {
         Member member = new Member(loginId, nickName, password);
