@@ -39,6 +39,53 @@
             </div>
         </div>
     </div>
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#create_group_modal">
+        그룹원 초대하기
+    </button>
+
+    <!-- Modal -->
+        <div class="modal fade bd-example-modal-lg modal_style" id="create_group_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <form action="" th:action method="post">
+                            <div class="form-group row mx-2">
+                                <select class="form-select" style="width:20%">
+                                    <option value="">==검색 방식 선택==</option>
+                                    <option th:each="searchType : ${searchTypes}" th:value="${searchType.name}"
+                                            th:text="${searchType.description}"></option>
+                                </select>
+                                <input type="text" id="searchValue" th:value="${searchValue}" class="form-control mx-2"
+                                       style="width:50%">
+                                <button type="submit" class="btn btn-secondary btn-xs" style="width:20%">검색</button>
+                            </div>
+                        </form>
+
+                        <div>
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>아이디</th>
+                                    <th>닉네임</th>
+                                    <th>선택</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="member : ${members}">
+                                    <td><p th:text="${member.loginId}">회원 ID</p></td>
+                                    <td><p th:text="${member.nickName}">닉네임</p></td>
+                                    <td>
+                                        <button type="submit" class="btn btn-secondary" th:onclick="|location.href='@{/groups/{groupId}/invite/{memberId}(groupId=__${groupId}__,memberId=${member.id})}'|">초대하기</button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+            </div>
+        </div>
 </div>
 </body>
 </html>
