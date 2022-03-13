@@ -8,6 +8,12 @@
     <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 </head>
 <style>
+    div#logo_box {
+    text-align: left;
+    }
+    div#member_box {
+    text-align: right;
+    }
     div#main_block {
         max-width: 680px;
         margin-top: 50px;
@@ -62,6 +68,7 @@
 
 </style>
 <body>
+<div th:replace="~{../templates/fragment/header :: header}"></div>
 <div class="container" id="main_block">
     <h2>몇 칸 오르셨나요?</h2>
     <form class="form-control" action="" th:action="@{/main/stair/add}" method="post">

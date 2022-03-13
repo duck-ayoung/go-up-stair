@@ -36,6 +36,7 @@ public class MainController {
             return "redirect:/";
         }
 
+        model.addAttribute("loginMember", loginMember);
         model.addAttribute("totalStairValue",
                 stairService.getSumStairValueForWeek(loginMember.getId()));
         model.addAttribute("groups", groupService.findGroupsByMember(loginMember));
