@@ -22,7 +22,8 @@
 
     <img src="../static/images/stairs.png" th:src="@{/images/stairs.png}" alt="My Image" height="300">
     <p id="start_button">
-        <button type="button" class="btn btn-primary btn-lg" th:onclick="|location.href='@{/login}'|">Start</button>
+        <button th:if="${loginMember} == null" type="button" class="btn btn-primary btn-lg" th:onclick="|location.href='@{/login}'|">Start</button>
+        <button th:if="${loginMember} != null" type="button" class="btn btn-primary btn-lg" th:onclick="|location.href='@{/main}'|">Start</button>
     </p>
 </div>
 </body>

@@ -23,6 +23,6 @@ public class MemberController {
     @PostMapping("/add")
     public String save(@ModelAttribute MemberForm memberForm) {
         memberService.join(memberForm);
-        return "redirect:/";
+        return "redirect:/login";
     }
 }
