@@ -28,6 +28,11 @@ public class GroupController {
         return SearchTypes.values();
     }
 
+    @ModelAttribute("loginMember")
+    public Member loginMember(@Login Member loginMember) {
+        return loginMember;
+    }
+
     @GetMapping("/{groupId}")
     public String mainGroupView(@PathVariable Long groupId, Model model, @ModelAttribute String searchValue) {
         List<RankInfo> rankInfoTop3 = groupService.findRankInfoTop3(groupId);

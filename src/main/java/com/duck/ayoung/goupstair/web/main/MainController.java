@@ -32,10 +32,6 @@ public class MainController {
     @GetMapping
     public String main(@Login Member loginMember,
                        Model model) {
-        if (loginMember == null) {
-            return "redirect:/";
-        }
-
         model.addAttribute("loginMember", loginMember);
         model.addAttribute("totalStairValue",
                 stairService.getSumStairValueForWeek(loginMember.getId()));
@@ -47,11 +43,6 @@ public class MainController {
     public String addStair(@Login Member loginMember,
                            Integer stairValue, Model model) {
         log.info("stair {}", stairValue);
-
-        if (loginMember == null) {
-            return "redirect:/";
-        }
-
         log.info("loginMember.getLoginId {}", loginMember.getLoginId());
         stairService.save(stairValue, loginMember);
         model.addAttribute("totalStairValue", stairService.getSumStairValueForWeek(loginMember.getId()));
