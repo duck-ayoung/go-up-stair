@@ -9,9 +9,16 @@
 </head>
 <style>
     div#main_block {
-        max-width: 680px;
+        width: 60%;
         margin-top: 50px;
         text-align: center;
+    }
+    .left_block {
+        width: 20%;
+        text-align: center;
+    }
+    .right_block {
+        width: 20%;
     }
     .rank_box {
     width: 60%;
@@ -24,29 +31,46 @@
     width: 100px;
     height: 100px;
     }
+    .member_box {
+    width: 300px;
+    text-align: left;
+    background-color:#EAEAEA;
+    }
+
 </style>
 <body>
-<div class="container" id="main_block">
-    <h2>그룹 순위도</h2>
-    <div class="my-2" th:each="info, index : ${rankInfo}">
-        <div class="rank_box row">
-            <div class="col-sm-4">
-                <img class="medal" th:src="@{/images/} + |medal${index.count}.png|" alt="My Image">
-            </div>
-            <div class="col-sm-8 group_info">
-                <p th:text="${info.stairValue}"></p>
-                <p th:text="${info.member.nickName}"></p>
+<div class="row">
+    <div class="col left_block">
+    </div>
+    <div class="container col" id="main_block">
+        <h2>그룹 순위도</h2>
+        <div class="my-2" th:each="info, index : ${rankInfoTop3}">
+            <div class="rank_box row">
+                <div class="col-sm-4">
+                    <img class="medal" th:src="@{/images/} + |medal${index.count}.png|" alt="My Image">
+                </div>
+                <div class="col-sm-8 group_info">
+                    <p th:text="${info.stairValue}"></p>
+                    <p th:text="${info.member.nickName}"></p>
+                </div>
             </div>
         </div>
     </div>
+    <div class="col right_block">
+        <h3>그룹 회원 리스트</h3>
+        <div class="member_box">
+            <div th:each="rankInfo : ${rankInfoAll}">
+              <p th:text="|${rankInfo.member.nickName}(${rankInfo.stairValue})|"></p>
+            </div>
+        </div>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#create_group_modal">
+            그룹원 초대하기
+        </button>
 
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#create_group_modal">
-        그룹원 초대하기
-    </button>
-
-    <!-- Modal -->
-        <div class="modal fade bd-example-modal-lg modal_style" id="create_group_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <!-- Modal -->
+        <div class="modal fade bd-example-modal-lg modal_style" id="create_group_modal" tabindex="-1"
+             aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-body">
@@ -77,15 +101,20 @@
                                     <td><p th:text="${member.loginId}">회원 ID</p></td>
                                     <td><p th:text="${member.nickName}">닉네임</p></td>
                                     <td>
-                                        <button type="submit" class="btn btn-secondary" th:onclick="|location.href='@{/groups/{groupId}/invite/{memberId}(groupId=__${groupId}__,memberId=${member.id})}'|">초대하기</button>
+                                        <button type="submit" class="btn btn-secondary"
+                                                th:onclick="|location.href='@{/groups/{groupId}/invite/{memberId}(groupId=__${groupId}__,memberId=${member.id})}'|">
+                                            초대하기
+                                        </button>
                                     </td>
                                 </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
+                </div>
             </div>
         </div>
+    </div>
 </div>
 </body>
 </html>

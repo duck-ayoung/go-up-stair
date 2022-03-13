@@ -30,14 +30,16 @@ public class GroupController {
 
     @GetMapping("/{groupId}")
     public String mainGroupView(@PathVariable Long groupId, Model model, @ModelAttribute String searchValue) {
-        List<RankInfo> rankInfo = groupService.findRankInfo(groupId);
-        model.addAttribute("rankInfo", rankInfo);
+        List<RankInfo> rankInfoTop3 = groupService.findRankInfoTop3(groupId);
+        List<RankInfo> rankInfoAll = groupService.findRankInfoAll(groupId);
+        model.addAttribute("rankInfoTop3", rankInfoTop3);
+        model.addAttribute("rankInfoAll", rankInfoAll);
         return "groups/main";
     }
 
     @PostMapping("/{groupId}")
     public String search(@PathVariable Long groupId, Model model, @ModelAttribute String searchValue) {
-        List<RankInfo> rankInfo = groupService.findRankInfo(groupId);
+        List<RankInfo> rankInfo = groupService.findRankInfoTop3(groupId);
         model.addAttribute("rankInfo", rankInfo);
         List<Member> members = memberService.findByLoginIdContaining(searchValue);
         model.addAttribute("members", members);
@@ -46,10 +48,10 @@ public class GroupController {
 
     @GetMapping("/{groupId}/invite/{memberId}")
     public String invite(@PathVariable Long groupId, @PathVariable Long memberId, Model model, @ModelAttribute String searchValue) {
-        List<RankInfo> rankInfo = groupService.findRankInfo(groupId);
+        List<RankInfo> rankInfo = groupService.findRankInfoTop3(groupId);
         model.addAttribute("rankInfo", rankInfo);
         groupService.joinGroup(groupId, memberId);
-        return "groups/main";
+        return "redirect:groups/main";
     }
 
     @PostMapping("/add")

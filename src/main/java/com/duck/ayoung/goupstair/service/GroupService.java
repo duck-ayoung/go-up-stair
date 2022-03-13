@@ -43,7 +43,11 @@ public class GroupService {
         return groupRepository.findGroupsByMember(member);
     }
 
-    public List<RankInfo> findRankInfo(Long groupId) {
-        return groupRepository.findRankInfo(groupId);
+    public List<RankInfo> findRankInfoTop3(Long groupId) {
+        return groupRepository.findRankInfoTop3(groupId);
+    }
+
+    public List<RankInfo> findRankInfoAll(Long groupId) {
+        return groupRepository.findRankInfoAll(groupId);
     }
 }

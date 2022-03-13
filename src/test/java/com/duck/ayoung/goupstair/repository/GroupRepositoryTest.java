@@ -71,12 +71,81 @@ class GroupRepositoryTest {
         stairService.save(30, member3);
 
         //when
-        List<RankInfo> rankMember = groupRepository.findRankInfo(group.getId());
+        List<RankInfo> rankMember = groupRepository.findRankInfoTop3(group.getId());
 
         //then
         assertThat(rankMember.get(0).member).isEqualTo(member3);
         assertThat(rankMember.get(1).member).isEqualTo(member1);
         assertThat(rankMember.get(2).member).isEqualTo(member2);
+    }
+
+    @Test
+    public void 멤버랭크검색Top3() {
+        // given
+        Member member1 = new Member("test1", "tester1", "test1");
+        Member member2 = new Member("test2", "tester2", "test2");
+        Member member3 = new Member("test3", "tester3", "test3");
+        Member member4 = new Member("test4", "tester4", "test4");
+
+        memberRepository.save(member1);
+        memberRepository.save(member2);
+        memberRepository.save(member3);
+        memberRepository.save(member4);
+
+        Group group = new Group("group1", null, null);
+        groupRepository.save(group, member1);
+        groupRepository.join(group, member2);
+        groupRepository.join(group, member3);
+        groupRepository.join(group, member4);
+
+        stairService.save(20, member1);
+        stairService.save(10, member2);
+        stairService.save(30, member3);
+        stairService.save(5, member4);
+
+        //when
+        List<RankInfo> rankMember = groupRepository.findRankInfoTop3(group.getId());
+
+        //then
+        assertThat(rankMember.get(0).member).isEqualTo(member3);
+        assertThat(rankMember.get(1).member).isEqualTo(member1);
+        assertThat(rankMember.get(2).member).isEqualTo(member2);
+        assertThat(rankMember.size()).isEqualTo(3);
+    }
+
+    @Test
+    public void 멤버랭크검색All() {
+        // given
+        Member member1 = new Member("test1", "tester1", "test1");
+        Member member2 = new Member("test2", "tester2", "test2");
+        Member member3 = new Member("test3", "tester3", "test3");
+        Member member4 = new Member("test4", "tester4", "test4");
+
+        memberRepository.save(member1);
+        memberRepository.save(member2);
+        memberRepository.save(member3);
+        memberRepository.save(member4);
+
+        Group group = new Group("group1", null, null);
+        groupRepository.save(group, member1);
+        groupRepository.join(group, member2);
+        groupRepository.join(group, member3);
+        groupRepository.join(group, member4);
+
+        stairService.save(20, member1);
+        stairService.save(10, member2);
+        stairService.save(30, member3);
+        stairService.save(5, member4);
+
+        //when
+        List<RankInfo> rankMember = groupRepository.findRankInfoAll(group.getId());
+
+        //then
+        assertThat(rankMember.get(0).member).isEqualTo(member3);
+        assertThat(rankMember.get(1).member).isEqualTo(member1);
+        assertThat(rankMember.get(2).member).isEqualTo(member2);
+        assertThat(rankMember.get(3).member).isEqualTo(member4);
+        assertThat(rankMember.size()).isEqualTo(4);
     }
 
     public Member createMember(String loginId, String nickName, String password) {

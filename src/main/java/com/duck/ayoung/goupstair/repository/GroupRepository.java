@@ -50,7 +50,28 @@ public class GroupRepository {
                 .getResultList();
     }
 
-    public List<RankInfo> findRankInfo(Long groupId) {
+    public List<RankInfo> findRankInfoAll(Long groupId) {
+        LocalDateTime localDateTime = LocalDateTime.now();
+        LocalDate thisMonday = DateUtil.getThisMonday(LocalDate.from(localDateTime));
+
+        List<RankInfo> resultList = em.createQuery("select new com.duck.ayoung.goupstair.repository.RankInfo(s.member, sum(s" +
+                ".stairValue) as stairValue) " +
+                "from Stair s " +
+                "join s.member " +
+                "where s.createDateTime >= :thisMonday " +
+                "and s.createDateTime <= :localDate " +
+                "and s.member in (select mg.member from MemberGroup mg where mg.group.id = :groupId) " +
+                "group by s.member " +
+                "order by stairValue desc", RankInfo.class)
+                .setParameter("thisMonday", thisMonday.atTime(0, 0))
+                .setParameter("localDate", localDateTime)
+                .setParameter("groupId", groupId)
+                .getResultList();
+
+        return resultList;
+    }
+
+    public List<RankInfo> findRankInfoTop3(Long groupId) {
         LocalDateTime localDateTime = LocalDateTime.now();
         LocalDate thisMonday = DateUtil.getThisMonday(LocalDate.from(localDateTime));
 
@@ -72,5 +93,4 @@ public class GroupRepository {
 
         return resultList;
     }
-
 }
