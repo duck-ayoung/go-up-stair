@@ -21,4 +21,12 @@ public abstract class Notification {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
+
+    public Notification() {
+    }
+
+    public Notification(String content, Member member) {
+        this.content = content;
+        this.member = member;
+    }
 }

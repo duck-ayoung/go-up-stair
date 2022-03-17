@@ -2,6 +2,7 @@ package com.duck.ayoung.goupstair.service;
 
 import com.duck.ayoung.goupstair.domain.Group;
 import com.duck.ayoung.goupstair.domain.Member;
+import com.duck.ayoung.goupstair.domain.Notification;
 import com.duck.ayoung.goupstair.repository.GroupRepository;
 import com.duck.ayoung.goupstair.repository.MemberRepository;
 import com.duck.ayoung.goupstair.web.group.GroupForm;

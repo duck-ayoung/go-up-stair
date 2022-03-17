@@ -1,6 +1,7 @@
 package com.duck.ayoung.goupstair.service;
 
 import com.duck.ayoung.goupstair.domain.Member;
+import com.duck.ayoung.goupstair.domain.Notification;
 import com.duck.ayoung.goupstair.repository.MemberRepository;
 import com.duck.ayoung.goupstair.web.member.MemberForm;
 import lombok.RequiredArgsConstructor;
@@ -39,6 +40,8 @@ public class MemberService {
         return memberRepository.findByNickNameContaining(nickName);
     }
 
-
+    public List<Notification> findNotification(Member member) {
+        return memberRepository.findNotification(member);
+    }
 
 }

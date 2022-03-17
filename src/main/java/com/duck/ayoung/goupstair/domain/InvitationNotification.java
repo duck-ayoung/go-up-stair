@@ -12,4 +12,11 @@ public class InvitationNotification extends Notification {
     @JoinColumn(name = "group_id")
     private Group group;
 
+    public InvitationNotification() {
+    }
+
+    public InvitationNotification(String content, Member member, Group group) {
+        super(content, member);
+        this.group = group;
+    }
 }

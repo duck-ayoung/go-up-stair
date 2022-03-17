@@ -10,8 +10,16 @@
         <p class="px-1" th:text="${loginMember.nickName}" style="float:right; font-weight: bold; font-size: large; line-height: 60px">미라클 샐리</p>
         <img class="px-1" src="../static/images/user_icon.png" th:src="@{/images/user_icon.png}" alt="My Image"
              style="float:right" height="60px">
-        <div style="float:right; border-radius:50%; background-color:red; height:40px; width:40px;">
-            <p style="text-align:center; font-weight: bold; font-size: large; line-height: 40px">1</p>
+        <div class="dropdown" style="float:right; border-radius:50%; background-color:red;">
+            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                    aria-expanded="false" style="text-align:center; font-weight: bold; font-size: large;">
+                1
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li th:each = "noti : ${notification}"><p th:text="|${noti.group.name} ${noti.content}|">초대</p>
+                    <button>승인</button>
+                </li>
+            </ul>
         </div>
     </div>
 </div>

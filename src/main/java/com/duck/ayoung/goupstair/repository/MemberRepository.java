@@ -1,6 +1,7 @@
 package com.duck.ayoung.goupstair.repository;
 
 import com.duck.ayoung.goupstair.domain.Member;
+import com.duck.ayoung.goupstair.domain.Notification;
 import com.duck.ayoung.goupstair.domain.Stair;
 import org.springframework.stereotype.Repository;
 
@@ -48,4 +49,9 @@ public class MemberRepository {
                 .getResultList();
     }
 
+    public List<Notification> findNotification(Member member) {
+        return em.createQuery("select n from Notification n where n.member =:member", Notification.class)
+                .setParameter("member", member)
+                .getResultList();
+    }
 }

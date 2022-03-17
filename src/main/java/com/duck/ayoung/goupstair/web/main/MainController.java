@@ -1,6 +1,5 @@
 package com.duck.ayoung.goupstair.web.main;
 
-import com.duck.ayoung.goupstair.common.SessionConst;
 import com.duck.ayoung.goupstair.domain.Member;
 import com.duck.ayoung.goupstair.service.GroupService;
 import com.duck.ayoung.goupstair.service.MemberService;
@@ -13,11 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttribute;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.util.List;
 
 @Slf4j
 @Controller
@@ -33,6 +27,7 @@ public class MainController {
     public String main(@Login Member loginMember,
                        Model model) {
         model.addAttribute("loginMember", loginMember);
+        model.addAttribute("notification", memberService.findNotification(loginMember));
         model.addAttribute("totalStairValue",
                 stairService.getSumStairValueForWeek(loginMember.getId()));
         model.addAttribute("groups", groupService.findGroupsByMember(loginMember));

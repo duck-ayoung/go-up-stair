@@ -55,8 +55,8 @@ public class GroupController {
     public String invite(@PathVariable Long groupId, @PathVariable Long memberId, Model model, @ModelAttribute String searchValue) {
         List<RankInfo> rankInfo = groupService.findRankInfoTop3(groupId);
         model.addAttribute("rankInfo", rankInfo);
-        groupService.joinGroup(groupId, memberId);
-        return "redirect:groups/main";
+        groupService.inviteMember(groupId, memberId);
+        return "redirect:/groups/{groupId}";
     }
 
     @PostMapping("/add")

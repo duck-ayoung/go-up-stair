@@ -2,6 +2,7 @@ package com.duck.ayoung.goupstair.repository;
 
 import com.duck.ayoung.goupstair.common.DateUtil;
 import com.duck.ayoung.goupstair.domain.Group;
+import com.duck.ayoung.goupstair.domain.InvitationNotification;
 import com.duck.ayoung.goupstair.domain.Member;
 import com.duck.ayoung.goupstair.domain.MemberGroup;
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +32,11 @@ public class GroupRepository {
     public void join(Group group, Member member) {
         MemberGroup memberGroup = new MemberGroup(member, group);
         em.persist(memberGroup);
+    }
+
+    public void invite(Group group, Member member) {
+        InvitationNotification invitationNotification = new InvitationNotification("초대", member, group);
+        em.persist(invitationNotification);
     }
 
     public Group findOne(Long groupId) {

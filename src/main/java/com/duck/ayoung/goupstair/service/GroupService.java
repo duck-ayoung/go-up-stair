@@ -29,6 +29,13 @@ public class GroupService {
     }
 
     @Transactional
+    public void inviteMember(Long groupId, Long memberId) {
+        Group group = groupRepository.findOne(groupId);
+        Member member = memberRepository.findOne(memberId);
+        groupRepository.invite(group, member);
+    }
+
+    @Transactional
     public void joinGroup(Long groupId, Long memberId) {
         Group group = groupRepository.findOne(groupId);
         Member member = memberRepository.findOne(memberId);
