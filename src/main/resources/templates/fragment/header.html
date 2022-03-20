@@ -17,7 +17,8 @@
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                 <li th:each = "noti : ${notification}"><p th:text="|${noti.group.name} ${noti.content}|">초대</p>
-                    <button>승인</button>
+                    <button
+                            th:onclick="|location.href='@{/groups/{groupId}/join/{memberId}(groupId=__${noti.group.id}__,memberId=${noti.member.id})}'|">승인</button>
                 </li>
             </ul>
         </div>

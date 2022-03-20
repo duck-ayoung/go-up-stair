@@ -59,6 +59,14 @@ public class GroupController {
         return "redirect:/groups/{groupId}";
     }
 
+    @GetMapping("/{groupId}/join/{memberId}")
+    public String join(@PathVariable Long groupId, @PathVariable Long memberId, Model model) {
+        List<RankInfo> rankInfo = groupService.findRankInfoTop3(groupId);
+        model.addAttribute("rankInfo", rankInfo);
+        groupService.joinGroup(groupId, memberId);
+        return "redirect:/groups/{groupId}";
+    }
+
     @PostMapping("/add")
     public String save(@Login Member loginMember, @ModelAttribute GroupForm groupForm) {
         if (loginMember == null) {
